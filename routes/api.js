@@ -14,7 +14,9 @@ const CONNECTION_STRING = process.env.DB; //MongoClient.connect(CONNECTION_STRIN
 
 module.exports = function(app) {
 
-  app.route('/api/issues/:project').get(function(req, res) {
+  app.route('/api/issues/:project')
+    
+  .get(function(req, res) {
     var project = req.params.project;
     var filter = req.query;
     if (filter.open) {
@@ -35,7 +37,9 @@ module.exports = function(app) {
       });
     });
 
-  }).post(function(req, res) {
+  })
+    
+  .post(function(req, res) {
     var project = req.params.project;
     var body = req.body;
     if (!body.issue_title.replace(/\s/g, '').length || !body.issue_text.replace(/\s/g, '').length || !body.created_by.replace(/\s/g, '').length) {
@@ -62,7 +66,9 @@ module.exports = function(app) {
         });
       });
     }
-  }).put(function(req, res) {
+  })
+    
+  .put(function(req, res) {
     var project = req.params.project;
     var body = req.body;
     var _id = body._id
@@ -95,7 +101,9 @@ module.exports = function(app) {
         });
       });
     }
-  }).delete(function(req, res) {
+  })
+    
+  .delete(function(req, res) {
     var project = req.params.project;
     var body = req.body;
     var _id = body._id;
