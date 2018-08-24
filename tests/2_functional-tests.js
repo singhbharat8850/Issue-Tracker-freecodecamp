@@ -8,6 +8,7 @@ var chaiHttp = require('chai-http');
 var chai = require('chai');
 var assert = chai.assert;
 var server = require('../server');
+var ObjectId = require("mongodb").ObjectID;
 var _id;
 chai.use(chaiHttp);
 
