@@ -75,7 +75,7 @@ suite('Functional Tests', function() {
     suite('PUT /api/issues/{project} => text', function() {
 
       test('No body', function(done) {
-        chai.request(server).put('/api/issues/test').send({_id: _id}).end(function(err, res) {
+        chai.request(server).put('/api/issues/test').send({_id: ObjectId(_id)}).end(function(err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.text, 'no updated field sent');
 
