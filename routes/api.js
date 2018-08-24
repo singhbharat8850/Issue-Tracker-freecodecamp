@@ -103,31 +103,30 @@ module.exports = function(app) {
     }
   })
     
-  .delete(function(req, res) {
-    var project = req.params.project;
-    var body = req.body;
-    var _id = body._id;
-    var filter = {
-      _id: ObjectId(_id)
-    }
-    if (_id == '' || undefined) {
-      res.json('id error');
-    } else {
-      MongoClient.connect(CONNECTION_STRING, function(err, db) {
-        db.collection(project).deleteOne(filter, (err, docs) => {
-          if (err) {
+  .delete(function (req, res){  
+      var project = req.params.project;    
+      var body = req.body;
+      var _id = body._id;    
+      const regex = /^[0-9a-fA-F]{24}$/
+      if (_id.match(regex) == null) {             
+          res.json('_id error');      
+      } else {     
+          var filter = {_id: ObjectId(_id)}
+          MongoClient.connect(CONNECTION_STRING, function(err, db) {
+          db.collection(project).deleteOne(filter, (err, docs) => {
+            if (err) {
+              res.json('_id error');
+              db.close();              
+              console.log(err)
+            };                   
+            if (docs.deletedCount === 0) {
+              res.json('could not delete '+ _id);
+            } else {
+              res.json('deleted '+ _id);
+            }                    
             db.close();
-            res.json('_id error');
-            console.log(err)
-          };
-          if (docs.deletedCount === 0) {
-            res.json('could not delete ' + _id);
-          } else {
-            res.json('deleted ' + _id);
-          }
-          db.close();
         });
-      });
-    }
-  });
+       });
+      }                
+    }); 
 };
