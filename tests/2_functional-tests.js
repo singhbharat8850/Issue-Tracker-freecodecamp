@@ -10,6 +10,7 @@ var assert = chai.assert;
 var server = require('../server');
 var ObjectId = require("mongodb").ObjectID;
 var _id;
+var bookId = ObjectId(_id);
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
@@ -76,7 +77,7 @@ suite('Functional Tests', function() {
     suite('PUT /api/issues/{project} => text', function() {
 
       test('No body', function(done) {
-        chai.request(server).put('/api/issues/test').send({_id: ObjectId(_id)}).end(function(err, res) {
+        chai.request(server).put('/api/issues/test').send({_id: bookId}).end(function(err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.text, 'no updated field sent');
 
@@ -86,9 +87,9 @@ suite('Functional Tests', function() {
       });
 
       test('One field to update', function(done) {
-        chai.request(server).put('/api/issues/test').send({_id: _id, issue_text: "huge error"}).end(function(err, res) {
+        chai.request(server).put('/api/issues/test').send({_id: bookId, issue_text: "huge error"}).end(function(err, res) {
           assert.equal(res.status, 200);
-          assert.equal(res.text, 'successfully updated' + _id);
+          assert.equal(res.text, '"successfully updated ' + bookId + '"');
 
           //fill me in too!
           done();
@@ -96,9 +97,9 @@ suite('Functional Tests', function() {
       });
 
       test('Multiple fields to update', function(done) {
-        chai.request(server).put('/api/issues/test').send({_id: _id, issue_title: "Same error", issue_text: "huge error"}).end(function(err, res) {
+        chai.request(server).put('/api/issues/test').send({_id: bookId, issue_title: "Same error", issue_text: "huge error"}).end(function(err, res) {
           assert.equal(res.status, 200);
-          assert.equal(res.text, 'successfully updated' + _id);
+          assert.equal(res.text, '"successfully updated ' + bookId + '"');
 
           //fill me in too!
           done();
@@ -180,9 +181,9 @@ suite('Functional Tests', function() {
     });
 
     test('Valid _id', function(done) {
-      chai.request(server).delete('/api/issues/test').send({_id: _id}).end(function(err, res) {
+      chai.request(server).delete('/api/issues/test').send({_id: bookId}).end(function(err, res) {
         assert.equal(res.status, 200);
-        assert.equal(res.text, 'deleted' + _id);
+        assert.equal(res.text, '"deleted ' + bookId + '"');
 
         //fill me in too!
         done();
