@@ -111,9 +111,9 @@ module.exports = function(app) {
       if (_id.match(regex) == null) {             
           res.json('_id error');      
       } else {     
-          var filter = {_id: ObjectId(_id)}
+          var filterDelete = {_id: ObjectId(_id)}
           MongoClient.connect(CONNECTION_STRING, function(err, db) {
-          db.collection(project).deleteOne(filter, (err, docs) => {
+          db.collection(project).deleteOne(filterDelete, (err, docs) => {
             if (err) {
               res.json('_id error');
               db.close();              
