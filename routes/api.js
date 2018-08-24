@@ -72,7 +72,7 @@ module.exports = function(app) {
     var project = req.params.project;
     var body = req.body;
     var _id = body._id
-    var filter = {
+    var filterPut = {
       _id: ObjectId(_id)
     }
     function clean(myObj) {
@@ -87,7 +87,7 @@ module.exports = function(app) {
     } else {
       updateIssue.updated_on = new Date();
       MongoClient.connect(CONNECTION_STRING, function(err, db) {
-        db.collection(project).updateOne(filter, {
+        db.collection(project).updateOne(filterPut, {
           $set: updateIssue
         }, (err, docs) => {
           if (err)
