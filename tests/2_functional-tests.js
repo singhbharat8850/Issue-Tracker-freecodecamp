@@ -167,7 +167,7 @@ suite('Functional Tests', function() {
     suite('DELETE /api/issues/{project} => text', function() {
 
       test('No _id', function(done) {
-        chai.request(server).delete('/api/issues/test').send({_id: _id}).end(function(err, res) {
+        chai.request(server).delete('/api/issues/test').send({_id: ''}).end(function(err, res) {
           assert.equal(res.status, 200);
           assert.equal(res.text, '_id error');
 
