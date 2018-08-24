@@ -98,12 +98,7 @@
           e.preventDefault();
         
         });
-        $('#testForm3').submit(function(e) {
-          var idValue = $('#idValue').val();
-          var regex = /^[0-9a-fA-F]{24}$/
-          if (idValue.match(regex) == null) {
-            $('#jsonResult').text('_id error');
-          }
+        $('#testForm3').submit(function(e) {          
           $.ajax({
             url: '/api/issues/apitest',
             type: 'delete',
