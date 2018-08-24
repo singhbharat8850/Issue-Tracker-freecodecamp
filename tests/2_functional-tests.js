@@ -60,7 +60,8 @@ suite('Functional Tests', function() {
         assert.equal(res.body.assigned_to, '');
         assert.equal(res.body.status_text, '');
         assert.isBoolean(res.body.open);
-        assert.isTrue(res.body.open)
+        assert.isTrue(res.body.open);
+        done();
       });
 
       test('Missing required fields', function(done) {
@@ -79,7 +80,7 @@ suite('Functional Tests', function() {
       test('No body', function(done) {
         chai.request(server).put('/api/issues/test').send({_id: bookId}).end(function(err, res) {
           assert.equal(res.status, 200);
-          assert.equal(res.text, 'no updated field sent');
+          assert.equal(res.text, '"no updated field sent"');
 
           //fill me in too!
           done();
@@ -171,7 +172,7 @@ suite('Functional Tests', function() {
       test('No _id', function(done) {
         chai.request(server).delete('/api/issues/test').send({_id: ''}).end(function(err, res) {
           assert.equal(res.status, 200);
-          assert.equal(res.text, '_id error');
+          assert.equal(res.text, '"_id error"');
 
           //fill me in too!
           done();
